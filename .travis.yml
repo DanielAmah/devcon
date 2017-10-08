@@ -1,13 +1,24 @@
 language: ruby
 rvm:
-  - 2.4.0
+- 2.4.0
 before_script:
-  - psql -c 'create database devcontest' -U postgres
-  - bundle exec rake db:create --all
-  - bundle exec rake db:migrate
+- psql -c 'create database devcontest' -U postgres
+- bundle exec rake db:create --all
+- bundle exec rake db:migrate
 script:
-  - bundle exec rake ci:tests
+- bundle exec rake ci:tests
 services:
-  - postgresql
+- postgresql
 notifications:
   email: false
+deploy:
+  provider: heroku
+  api_key:
+    secure: mZkQ1GjT5x6EWbCAs/KBtwOHezao9dwxxj8k4e34Ke4MB1nVRsKHyg+DO4YAh7GGqaZ5JozOvbBCiYcxCYn9OXcdoCSe91SHDIuIg+RwqchVTKq8qAbgoy9+M73+ffx0PN6y6Eze4tFcQIYJMtCpOc5eolrFjPqLmXGkM+zCCfXfhcjgBBij6SpTfExNoaTv98BqzCJgboOdG6gGq6iA7ZqY1lNUO1g/JBaZ0nTynzF/G7cxq7d3QaIeibdMDwjwu2/g6zMWa8F7T+ZEQjN2sTeJe+uJTxIbZfcP7p8LwREwpwQF1+gG90nN618srtc5siZvyfY0hFoquk1v5Gzp+cPaoQsDFG9ScpS3axjdE/lt67X9O6WoZFSliFVlomwRBCA1H8KV8RMPiamZpFG/JRc4xX6fFGVytZ2n2STLijYtug/YyNKBF2+AGLEuuhpbiMAtPgCENMHPcu8dA6oNyYvUpsNbqpQ/zdGfZCFwbJ3QHA38bAUf35pyBB8Iocs4lP/yUu1+CY9tI3zV8Walx0gnKVL4gAIz3Vv/nhMeoclO415WfYBKaYmu1WK4EpuawJ1S6YmKa/8UEwjFr12iaxSD28aWXyVf8CPiqL6NW0XMGztr2KoZlSlj+cXCvI5ha6enjNhQzctSa9E/iNUFykdHfum49o5xOdCfdXPKUqw=
+  app:
+    develop: https://git.heroku.com/devcon-dev.git
+    master: https://git.heroku.com/devconweb.git
+  on:
+    repo: https://github.com/DanielAmah/devcon
+  run:
+    - "rails db:migrate"
