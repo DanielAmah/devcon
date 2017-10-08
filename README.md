@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/DanielAmah/devcon.svg?branch=develop)](https://travis-ci.org/DanielAmah/devcon)
 # README
 
 This README would normally document whatever steps are necessary to get the

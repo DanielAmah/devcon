@@ -1,0 +1,15 @@
+language: ruby
+rvm:
+  - 2.4.0
+before_script:
+  - psql -c 'create database devcontest' -U postgres
+  - bundle exec rake db:create --all
+  - bundle exec rake db:migrate
+script:
+  - RAILS_ENV=test bundle exec rake db:migrate --trace
+  - bundle exec rake db:test:prepare
+  - bundle exec rake spec
+services:
+  - postgresql
+notifications:
+  email: false
